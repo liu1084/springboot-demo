@@ -1,0 +1,32 @@
+server:
+    servlet:
+        context-path: "/trinity"
+    port: 9900
+spring:
+    thymeleaf:
+        encoding: UTF-8
+        enabled: true
+        cache: false
+        prefix: classpath:/templates/
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password:
+        url: jdbc:mysql://localhost:3306/video_demo?serverTimezone=Asia/Shanghai
+    servlet:
+        multipart:
+            enabled: true
+            max-file-size: 3000MB
+            max-request-size: 2000MB
+    profiles:
+        active: dev
+music:
+    file:
+        maxSize: 1000000000
+video:
+    file:
+        maxSize: 20000000000
+        allowedMimeTypes: video/x-msvideo, audio/x-pn-realaudio, video/mp4, video/quicktime,application/octet-stream
+        location: D:/xampp/nginx/html/Upload
+logging:
+    isDebug: true

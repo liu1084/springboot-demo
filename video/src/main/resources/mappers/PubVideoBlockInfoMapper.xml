@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.proaimltd.web.video.model.mapper.PubVideoBlockInfoMapper">
+	<resultMap id="BaseResultMap" type="com.proaimltd.web.video.model.entity.PubVideoBlockInfo">
+		<id column="id" jdbcType="BIGINT" property="id"/>
+		<result column="video_id" jdbcType="BIGINT" property="videoId"/>
+		<result column="md5" jdbcType="VARCHAR" property="md5"/>
+		<result column="block_size" jdbcType="DOUBLE" property="blockSize"/>
+		<result column="block_index" jdbcType="INTEGER" property="blockIndex"/>
+		<result column="block_md5" jdbcType="VARCHAR" property="blockMd5"/>
+		<result column="is_deleted" jdbcType="BIT" property="isDeleted"/>
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, video_id, md5, block_size, block_index, block_md5, is_deleted, create_time, update_time
+	</sql>
+	<select id="selectPubVideoBlockInfoByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from pub_video_block_info
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deletePubVideoBlockInfoByPrimaryKey" parameterType="java.lang.Long">
+		DELETE FROM pub_video_block_info
+		WHERE id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insertPubVideoBlockInfo" parameterType="com.proaimltd.web.video.model.entity.PubVideoBlockInfo">
+		INSERT INTO pub_video_block_info (id, video_id, md5,
+										  block_size, block_index, block_md5,
+										  is_deleted, create_time, update_time
+		)
+		VALUES (#{id,jdbcType=BIGINT}, #{videoId,jdbcType=BIGINT}, #{md5,jdbcType=VARCHAR},
+				#{blockSize,jdbcType=DOUBLE}, #{blockIndex,jdbcType=INTEGER}, #{blockMd5,jdbcType=VARCHAR},
+				#{isDeleted,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertPubVideoBlockInfoSelective" parameterType="com.proaimltd.web.video.model.entity.PubVideoBlockInfo">
+		insert into pub_video_block_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="videoId != null">
+				video_id,
+			</if>
+			<if test="md5 != null">
+				md5,
+			</if>
+			<if test="blockSize != null">
+				block_size,
+			</if>
+			<if test="blockIndex != null">
+				block_index,
+			</if>
+			<if test="blockMd5 != null">
+				block_md5,
+			</if>
+			<if test="isDeleted != null">
+				is_deleted,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="videoId != null">
+				#{videoId,jdbcType=BIGINT},
+			</if>
+			<if test="md5 != null">
+				#{md5,jdbcType=VARCHAR},
+			</if>
+			<if test="blockSize != null">
+				#{blockSize,jdbcType=DOUBLE},
+			</if>
+			<if test="blockIndex != null">
+				#{blockIndex,jdbcType=INTEGER},
+			</if>
+			<if test="blockMd5 != null">
+				#{blockMd5,jdbcType=VARCHAR},
+			</if>
+			<if test="isDeleted != null">
+				#{isDeleted,jdbcType=BIT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updatePubVideoBlockInfoByPrimaryKeySelective" parameterType="com.proaimltd.web.video.model.entity.PubVideoBlockInfo">
+		update pub_video_block_info
+		<set>
+			<if test="videoId != null">
+				video_id = #{videoId,jdbcType=BIGINT},
+			</if>
+			<if test="md5 != null">
+				md5 = #{md5,jdbcType=VARCHAR},
+			</if>
+			<if test="blockSize != null">
+				block_size = #{blockSize,jdbcType=DOUBLE},
+			</if>
+			<if test="blockIndex != null">
+				block_index = #{blockIndex,jdbcType=INTEGER},
+			</if>
+			<if test="blockMd5 != null">
+				block_md5 = #{blockMd5,jdbcType=VARCHAR},
+			</if>
+			<if test="isDeleted != null">
+				is_deleted = #{isDeleted,jdbcType=BIT},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updatePubVideoBlockInfoByPrimaryKey" parameterType="com.proaimltd.web.video.model.entity.PubVideoBlockInfo">
+		UPDATE pub_video_block_info
+		SET video_id    = #{videoId,jdbcType=BIGINT},
+			md5         = #{md5,jdbcType=VARCHAR},
+			block_size  = #{blockSize,jdbcType=DOUBLE},
+			block_index = #{blockIndex,jdbcType=INTEGER},
+			block_md5   = #{blockMd5,jdbcType=VARCHAR},
+			is_deleted  = #{isDeleted,jdbcType=BIT},
+			create_time = #{createTime,jdbcType=TIMESTAMP},
+			update_time = #{updateTime,jdbcType=TIMESTAMP}
+		WHERE id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<update id="deletePubVideoBlockInfoByMD5" parameterType="string">
+		UPDATE pub_video_block_info t1
+		set t1.is_deleted = 1
+		WHERE 1=1
+		AND t1.md5 = #{md5, jdbcType=VARCHAR}
+	</update>
+</mapper>
