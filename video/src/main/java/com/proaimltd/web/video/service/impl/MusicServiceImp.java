@@ -22,25 +22,30 @@ import java.io.IOException;
 public class MusicServiceImp implements IMusicService {
 	public static final String uploadingDir = System.getProperty("user.dir") + "/uploadingMusicDir/";
 
-	//先应用Dao层
-	@Autowired
-	private PubMusicInfoMapper pubMusicInfoMapper;
-
 	@Override
 	public UploadMicRespDTO upload(MultipartFile musicFile) {
-		//将文件写入本地
-		File dest = new File(uploadingDir+musicFile.getOriginalFilename());
-		try {
-			musicFile.transferTo(dest);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		return null;
 	}
 
-	@Override
-	public void insert(PubMusicInfo musicInfo) {
-		pubMusicInfoMapper.insert(musicInfo);
-	}
+//	//先应用Dao层
+//	@Autowired
+//	private PubMusicInfoMapper pubMusicInfoMapper;
+//
+//	@Override
+//	public UploadMicRespDTO upload(MultipartFile musicFile) {
+//		//将文件写入本地
+//		File dest = new File(uploadingDir+musicFile.getOriginalFilename());
+//		try {
+//			musicFile.transferTo(dest);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
+//
+//	@Override
+//	public void insert(PubMusicInfo musicInfo) {
+//		pubMusicInfoMapper.insert(musicInfo);
+//	}
 
 }

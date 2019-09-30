@@ -12,5 +12,4 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface IMusicService {
 	UploadMicRespDTO upload(MultipartFile musicFile);
-	void insert(PubMusicInfo musicInfo);
 }
