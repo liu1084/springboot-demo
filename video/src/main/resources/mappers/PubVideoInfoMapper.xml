@@ -37,6 +37,9 @@
 										#{userName,jdbcType=VARCHAR}, #{fileMimeType,jdbcType=VARCHAR}, #{achTag,jdbcType=BIT},
 										#{fileMd5,jdbcType=VARCHAR}, #{parts,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
 										#{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT})
+		<selectKey keyProperty="id" keyColumn="id" resultType="long" order="AFTER">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
 	</insert>
 	<insert id="insertPubVideoInfoSelective" parameterType="com.proaimltd.web.video.model.entity.PubVideoInfo">
 		insert into pub_video_info
@@ -166,5 +169,20 @@
 		SET t1.is_deleted = 1
 		WHERE 1 = 1
 			  AND t1.file_md5 = #{md5, jdbcType=VARCHAR}
+	</update>
+	<select id="queryVideoInfoByMD5" resultMap="BaseResultMap">
+		select
+			<include refid="Base_Column_List"/>
+		from pub_video_info t1
+		where 1=1
+		and t1.file_md5 = #{md5,jdbcType=VARCHAR}
+		and t1.is_deleted = 0
+	</select>
+	<update id="setUplaoded" parameterType="long">
+		update pub_video_info t1
+			set t1.ach_tag = 1
+		where 1=1
+		and t1.file_md5 = #{id,jdbcType=BIGINT}
+		and t1.is_deleted = 0
 	</update>
 </mapper>

@@ -2,6 +2,7 @@ package com.proaimltd.web.video.model.mapper;
 
 import com.proaimltd.web.video.model.entity.PubVideoInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 

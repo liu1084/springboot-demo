@@ -144,5 +144,23 @@
 		set t1.is_deleted = 1
 		WHERE 1=1
 		AND t1.md5 = #{md5, jdbcType=VARCHAR}
+		and t1.is_deleted = 0
 	</update>
+
+	<update id="updatePubVideoBlockInfoByMD5" >
+		update pub_video_block_info t1
+			set t1.video_id = #{videoId, jdbcType=BIGINT}
+		where 1=1
+		and t1.md5 = #{md5,jdbcType=VARCHAR}
+	</update>
+
+
+	<select id="queryPubVideoBlocksByMD5" resultMap="BaseResultMap">
+		select
+			<include refid="Base_Column_List"/>
+		from pub_video_block_info t1
+		where 1=1
+		and t1.block_md5 = #{md5,jdbcType=VARCHAR}
+		and t1.is_deleted = 0
+	</select>
 </mapper>
