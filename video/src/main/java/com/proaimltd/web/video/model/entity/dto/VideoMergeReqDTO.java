@@ -17,4 +17,5 @@ public class VideoMergeReqDTO {
 	private String username;
 	private String fileMimeType;
 	private int parts;
+	private long fileSize;
 }

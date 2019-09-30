@@ -80,7 +80,14 @@
 
                     // 构建表单
                     const form = new FormData();
-                    form.append('file', blobSlice.call(file, start, end));
+                    const block = blobSlice.call(file, start, end);
+					var a = new FileReader();
+					a.readAsArrayBuffer(blob);
+					a.onloadend = function () {
+						const blockMD5 = SparkMD5.ArrayBuffer.hash(a.result);
+						form.set('blockMD5', blockMD5);
+					};
+                    form.append('file', block);
                     form.set('md5', md5);
                     form.set('originFileName', file.name);
                     form.set('blockCount', blockCount);

@@ -26,14 +26,9 @@
 		WHERE id = #{id,jdbcType=BIGINT}
 	</delete>
 	<insert id="insertPubVideoBlockInfo" parameterType="com.proaimltd.web.video.model.entity.PubVideoBlockInfo">
-		INSERT INTO pub_video_block_info (id, video_id, md5,
-										  block_size, block_index, block_md5,
-										  is_deleted, create_time, update_time
-		)
-		VALUES (#{id,jdbcType=BIGINT}, #{videoId,jdbcType=BIGINT}, #{md5,jdbcType=VARCHAR},
-				#{blockSize,jdbcType=DOUBLE}, #{blockIndex,jdbcType=INTEGER}, #{blockMd5,jdbcType=VARCHAR},
-				#{isDeleted,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-		)
+		REPLACE INTO pub_video_block_info (video_id, md5, block_size, block_index, block_md5)
+		VALUES (#{videoId,jdbcType=BIGINT}, #{md5,jdbcType=VARCHAR},
+				#{blockSize,jdbcType=DOUBLE}, #{blockIndex,jdbcType=INTEGER}, #{blockMd5,jdbcType=VARCHAR})
 	</insert>
 	<insert id="insertPubVideoBlockInfoSelective" parameterType="com.proaimltd.web.video.model.entity.PubVideoBlockInfo">
 		insert into pub_video_block_info

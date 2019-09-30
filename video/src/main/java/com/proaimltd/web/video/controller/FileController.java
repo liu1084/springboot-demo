@@ -55,10 +55,11 @@ public class FileController {
 													  @RequestParam String md5,
 													  @RequestParam String originFileName,
 													  @RequestParam int blockCount,
+													  @RequestParam String blockMD5,
 													  @RequestParam int index,
 													  @RequestParam long fileSize) {
 		try {
-			FileBlockInfo fileBlockInfo = generateFileBlockInfo(uploadFile, md5, originFileName, blockCount, index, fileSize);
+			FileBlockInfo fileBlockInfo = generateFileBlockInfo(uploadFile, md5, originFileName, blockCount, blockMD5, index, fileSize);
 			Optional<Map<String, String>> resp = videoService.upload(fileBlockInfo);
 			return ResponseEntity.of(resp);
 		} catch (ZffException ex1) {
@@ -72,10 +73,11 @@ public class FileController {
 		return null;
 	}
 
-	private FileBlockInfo generateFileBlockInfo(MultipartFile uploadFile, String md5, String originFileName, int blockCount, int index, long fileSize) {
+	private FileBlockInfo generateFileBlockInfo(MultipartFile uploadFile, String md5, String originFileName, int blockCount, String blockMD5,  int index, long fileSize) throws IOException, NoSuchAlgorithmException {
 		FileBlockInfo fileBlockInfo = new FileBlockInfo();
 		fileBlockInfo.setUploadFile(uploadFile);
 		fileBlockInfo.setMd5(md5);
+		fileBlockInfo.setBlockMD5(blockMD5);
 		fileBlockInfo.setOriginFileName(originFileName);
 		fileBlockInfo.setBlockCount(blockCount);
 		fileBlockInfo.setIndex(index);
@@ -85,8 +87,12 @@ public class FileController {
 
 	@PostMapping(value = "/mergeChunks")
 	@ResponseBody
-	public ResponseEntity<Map<String, String>> mergeChunks(@RequestBody VideoMergeReqDTO videoMergeReqDTO) {
-		videoService.mergeChunks(videoMergeReqDTO);
-		return ResponseEntity.of(Optional.empty());
+	public ResponseEntity<VideoMergeReqDTO> mergeChunks(@RequestBody VideoMergeReqDTO videoMergeReqDTO) {
+		try {
+			videoService.mergeChunks(videoMergeReqDTO);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.of(Optional.ofNullable(videoMergeReqDTO));
 	}
 }

@@ -5,7 +5,7 @@
 		<id column="id" jdbcType="INTEGER" property="id"/>
 		<result column="origin_name" jdbcType="VARCHAR" property="originName"/>
 		<result column="hash_name" jdbcType="VARCHAR" property="hashName"/>
-		<result column="user_name" jdbcType="VARCHAR" property="userName"/>
+		<result column="user_name" jdbcType="VARCHAR" property="username"/>
 		<result column="file_mime_type" jdbcType="VARCHAR" property="fileMimeType"/>
 		<result column="ach_tag" jdbcType="BIT" property="achTag"/>
 		<result column="file_md5" jdbcType="VARCHAR" property="fileMd5"/>
@@ -29,14 +29,12 @@
 		WHERE id = #{id,jdbcType=INTEGER}
 	</delete>
 	<insert id="insertPubVideoInfo" parameterType="com.proaimltd.web.video.model.entity.PubVideoInfo">
-		INSERT INTO pub_video_info (id, origin_name, hash_name,
+		INSERT INTO pub_video_info (origin_name, hash_name,
 									user_name, file_mime_type, ach_tag,
-									file_md5, parts, create_time,
-									update_time, is_deleted)
-		VALUES (#{id,jdbcType=INTEGER}, #{originName,jdbcType=VARCHAR}, #{hashName,jdbcType=VARCHAR},
-										#{userName,jdbcType=VARCHAR}, #{fileMimeType,jdbcType=VARCHAR}, #{achTag,jdbcType=BIT},
-										#{fileMd5,jdbcType=VARCHAR}, #{parts,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
-										#{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT})
+									file_md5, parts)
+		VALUES (#{originName,jdbcType=VARCHAR}, #{hashName,jdbcType=VARCHAR},
+										#{username,jdbcType=VARCHAR}, #{fileMimeType,jdbcType=VARCHAR}, #{achTag,jdbcType=BIT},
+										#{fileMd5,jdbcType=VARCHAR}, #{parts,jdbcType=INTEGER})
 		<selectKey keyProperty="id" keyColumn="id" resultType="long" order="AFTER">
 			SELECT LAST_INSERT_ID();
 		</selectKey>
@@ -53,7 +51,7 @@
 			<if test="hashName != null">
 				hash_name,
 			</if>
-			<if test="userName != null">
+			<if test="username != null">
 				user_name,
 			</if>
 			<if test="fileMimeType != null">
@@ -88,8 +86,8 @@
 			<if test="hashName != null">
 				#{hashName,jdbcType=VARCHAR},
 			</if>
-			<if test="userName != null">
-				#{userName,jdbcType=VARCHAR},
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
 			</if>
 			<if test="fileMimeType != null">
 				#{fileMimeType,jdbcType=VARCHAR},
@@ -123,8 +121,8 @@
 			<if test="hashName != null">
 				hash_name = #{hashName,jdbcType=VARCHAR},
 			</if>
-			<if test="userName != null">
-				user_name = #{userName,jdbcType=VARCHAR},
+			<if test="username != null">
+				user_name = #{username,jdbcType=VARCHAR},
 			</if>
 			<if test="fileMimeType != null">
 				file_mime_type = #{fileMimeType,jdbcType=VARCHAR},
@@ -154,7 +152,7 @@
 		UPDATE pub_video_info
 		SET origin_name    = #{originName,jdbcType=VARCHAR},
 			hash_name      = #{hashName,jdbcType=VARCHAR},
-			user_name      = #{userName,jdbcType=VARCHAR},
+			user_name      = #{username,jdbcType=VARCHAR},
 			file_mime_type = #{fileMimeType,jdbcType=VARCHAR},
 			ach_tag        = #{achTag,jdbcType=BIT},
 			file_md5       = #{fileMd5,jdbcType=VARCHAR},
@@ -170,7 +168,7 @@
 		WHERE 1 = 1
 			  AND t1.file_md5 = #{md5, jdbcType=VARCHAR}
 	</update>
-	<select id="queryVideoInfoByMD5" resultMap="BaseResultMap">
+	<select id="queryVideoInfoByMD5" parameterType="string" resultType="com.proaimltd.web.video.model.entity.PubVideoInfo">
 		select
 			<include refid="Base_Column_List"/>
 		from pub_video_info t1

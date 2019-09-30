@@ -18,11 +18,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class FileBlockInfo {
+	//上传的文件
 	private MultipartFile uploadFile;
+	//大文件的MD5
 	private String md5;
+	//大文件名称
 	private String originFileName;
+	//文件分片的数量
 	private int blockCount;
+	//每个分片的MD5
 	private String blockMD5;
+	//分片的Index, 合并文件的时候会按照此顺序进行
 	private int index;
+	//分片的大小
 	private double fileSize;
 }

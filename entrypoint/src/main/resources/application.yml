@@ -26,7 +26,8 @@ music:
 video:
     file:
         maxSize: 20000000000
-        allowedMimeTypes: video/x-msvideo, audio/x-pn-realaudio, video/mp4, video/quicktime,application/octet-stream
+        allowedMimeTypes: video/x-msvideo, audio/x-pn-realaudio, video/quicktime
         location: D:/xampp/nginx/html/Upload
+        nameFormatter: "%s_%03d"
 logging:
     isDebug: true
